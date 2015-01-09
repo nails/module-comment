@@ -1,0 +1,35 @@
+{
+	"name": "nailsapp/module-comment",
+	"keywords":
+	[
+		"Nails",
+		"Shed Collective",
+		"CodeIgniter",
+		"Comment Module"
+	],
+	"homepage": "http://nailsapp.co.uk/modules/comment",
+	"description": "This the \"Comment\" module for Nails.",
+	"license": "MIT",
+	"authors":
+	[
+		{
+			"name": "Pablo de la Pena",
+			"email": "p@shedcollective.org",
+			"homepage": "http://shedcollective.org",
+			"role": "Developer"
+		},
+		{
+			"name": "Gary Duncan",
+			"email": "g@shedcollective.org",
+			"homepage": "http://shedcollective.org",
+			"role": "Developer"
+		}
+	],
+	"support":
+	{
+		"email": "hello@shedcollective.org"
+	},
+	"require":
+	{
+	}
+}

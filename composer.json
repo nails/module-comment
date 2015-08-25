@@ -1,12 +1,6 @@
 {
     "name": "nailsapp/module-comment",
-    "keywords":
-    [
-        "Nails",
-        "Shed Collective",
-        "CodeIgniter",
-        "Comment Module"
-    ],
+    "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Comment Module"],
     "homepage": "http://nailsapp.co.uk/modules/comment",
     "description": "This is the \"Comment\" module for Nails.",
     "license": "MIT",

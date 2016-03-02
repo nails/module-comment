@@ -42,7 +42,8 @@
         "nails" :
         {
             "moduleName": "comment",
-            "type": "module"
+            "type": "module",
+            "namespace": "Nails\\Comment\\"
         }
     }
 }

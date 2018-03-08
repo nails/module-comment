@@ -1,13 +1,13 @@
 <?php
 
-return array(
-    'services' => array(
+return [
+    'services' => [
         'Comment' => function () {
-            if (class_exists('\App\Comment\Library\Comment')) {
-                return new \App\Comment\Library\Comment();
+            if (class_exists('\App\Comment\Service\Comment')) {
+                return new \App\Comment\Service\Comment();
             } else {
-                return new \Nails\Comment\Library\Comment();
+                return new \Nails\Comment\Service\Comment();
             }
         }
-    )
-);
+    ]
+];

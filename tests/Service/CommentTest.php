@@ -1,6 +1,6 @@
 <?php
 
-namespace Nails\Comment\Library;
+namespace Nails\Comment\Service;
 
 class CommentTest extends \PHPUnit_Framework_TestCase
 {

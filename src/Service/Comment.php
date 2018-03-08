@@ -10,7 +10,7 @@
  * @link
  */
 
-namespace Nails\Comment\Library;
+namespace Nails\Comment\Service;
 
 class Comment {
 

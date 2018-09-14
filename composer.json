@@ -1,5 +1,5 @@
 {
-    "name": "nailsapp/module-comment",
+    "name": "nails/module-comment",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Comment Module"],
     "homepage": "http://nailsapp.co.uk/modules/comment",
     "description": "This is the \"Comment\" module for Nails.",
@@ -27,7 +27,7 @@
     "prefer-stable": true,
     "require":
     {
-        "nailsapp/common": "dev-develop"
+        "nails/common": "dev-develop"
     },
     "require-dev":
     {

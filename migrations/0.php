@@ -6,7 +6,7 @@
  * Finalised:   09/01/2015
  */
 
-namespace Nails\Database\Migration\Nailsapp\ModuleComment;
+namespace Nails\Database\Migration\Nails\ModuleComment;
 
 use Nails\Common\Console\Migrate\Base;
 

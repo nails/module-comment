@@ -33,6 +33,7 @@ class Migration0 extends Base
                 KEY `parent_id` (`parent_id`),
                 KEY `created_by` (`created_by`),
                 KEY `modified_by` (`modified_by`),
+                KEY `type` (`type`,`item_id`),
                 CONSTRAINT `{{NAILS_DB_PREFIX}}comment_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `{{NAILS_DB_PREFIX}}user` (`id`) ON DELETE SET NULL,
                 CONSTRAINT `{{NAILS_DB_PREFIX}}comment_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `{{NAILS_DB_PREFIX}}user` (`id`) ON DELETE SET NULL,
                 CONSTRAINT `{{NAILS_DB_PREFIX}}comment_ibfk_3` FOREIGN KEY (`parent_id`) REFERENCES `{{NAILS_DB_PREFIX}}comment` (`id`) ON DELETE CASCADE

@@ -1,5 +1,6 @@
 <?php
 
+use Nails\Comment\Exception;
 use Nails\Comment\Model;
 use Nails\Comment\Resource;
 use Nails\Comment\Service;
@@ -10,7 +11,9 @@ return [
             if (class_exists('\App\Comment\Service\Comment')) {
                 return new \App\Comment\Service\Comment();
             } else {
-                return new Service\Comment();
+                throw new Exception\Service\AppServiceRequiredException(
+                    'The app must extend the Comment service'
+                );
             }
         },
     ],

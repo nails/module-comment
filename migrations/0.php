@@ -21,7 +21,7 @@ class Migration0 extends Base
         $this->query("
             CREATE TABLE `{{NAILS_DB_PREFIX}}comment` (
                 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                `resource` varchar(300) NOT NULL DEFAULT '',
+                `type` varchar(300) NOT NULL DEFAULT '',
                 `item_id` int(11) unsigned NOT NULL,
                 `parent_id` int(11) unsigned NOT NULL,
                 `body` text NOT NULL,

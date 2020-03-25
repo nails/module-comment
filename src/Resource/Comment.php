@@ -29,7 +29,7 @@ use Nails\Factory;
 class Comment extends Entity
 {
     /** @var string */
-    public $resource;
+    public $type;
 
     /** @var int */
     public $item_id;

@@ -1,7 +1,7 @@
 {
     "name": "nails/module-comment",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Comment Module"],
-    "homepage": "http://nailsapp.co.uk/modules/comment",
+    "homepage": "https://docs.nailsapp.co.uk/modules/other/comment",
     "description": "This is the \"Comment\" module for Nails.",
     "license": "MIT",
     "authors":
@@ -27,7 +27,8 @@
     "prefer-stable": true,
     "require":
     {
-        "nails/common": "dev-develop"
+        "nails/common": "dev-develop",
+        "nails/module-auth": "dev-develop"
     },
     "require-dev":
     {

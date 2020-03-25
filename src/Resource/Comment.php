@@ -36,12 +36,6 @@ class Comment extends Entity
     /** @var int */
     public $item_id;
 
-    /** @var int */
-    public $parent_id;
-
-    /** @var Comment */
-    public $parent;
-
     /** @var string */
     public $body;
 
@@ -50,28 +44,6 @@ class Comment extends Entity
 
     /** @var ExpandableField */
     public $votes;
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Returns the comment's parent
-     *
-     * @param array $aData A control array to pass to the Comment model
-     *
-     * @return $this|null
-     * @throws FactoryException
-     * @throws ModelException
-     */
-    public function parent(array $aData = []): ?self
-    {
-        if (empty($this->parent) && !empty($this->parent_id)) {
-            /** @var Model\Comment $oModel */
-            $oModel       = Factory::model('Comment', Constants::MODULE_SLUG);
-            $this->parent = $oModel->getById($this->parent_id, $aData);
-        }
-
-        return $this->parent;
-    }
 
     // --------------------------------------------------------------------------
 
@@ -150,10 +122,6 @@ class Comment extends Entity
             'body'       => $this->body,
             'type'       => $this->type,
             'item_id'    => $this->item_id,
-            'parent_id'  => $this->parent_id,
-            'parent'     => $this->parent
-                ? $this->parent->getPublic()
-                : null,
             'flags'      => $this->flags
                 ? array_map(
                     function (Flag $oFlag) {

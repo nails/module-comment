@@ -56,7 +56,6 @@ class Comment extends Base
         parent::__construct();
         $this->defaultSortColumn = $this->getColumn('created');
         $this
-            ->hasOne('parent', 'Comment', Constants::MODULE_SLUG)
             ->hasMany('flags', 'CommentFlag', 'comment_id', Constants::MODULE_SLUG)
             ->hasMany('votes', 'CommentVote', 'comment_id', Constants::MODULE_SLUG);
     }

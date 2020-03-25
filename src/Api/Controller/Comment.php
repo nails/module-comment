@@ -6,6 +6,7 @@ use Nails\Api;
 use Nails\Comment\Constants;
 use Nails\Common\Exception\FactoryException;
 use Nails\Common\Exception\ModelException;
+use Nails\Common\Helper\Model\Expand;
 use Nails\Common\Resource\Entity;
 use Nails\Common\Service\HttpCodes;
 use Nails\Factory;
@@ -22,7 +23,7 @@ class Comment extends Api\Controller\Base
      *
      * @var bool
      */
-    const REQUIRE_AUTH = false;
+    const REQUIRE_AUTH = true;
 
     // --------------------------------------------------------------------------
 
@@ -87,14 +88,27 @@ class Comment extends Api\Controller\Base
      */
     protected function getComments(string $sType, int $iId): array
     {
+        /** @var \Nails\Common\Service\Input $oInput */
+        $oInput = \Nails\Factory::service('Input');
         /** @var \Nails\Comment\Model\Comment $oModel */
         $oModel = Factory::model('Comment', Constants::MODULE_SLUG);
 
-        return $oModel->getAll([
-            'where' => [
-                ['type', $sType],
-                ['item_id', $iId],
-            ],
-        ]);
+        return array_map(
+            function (\Nails\Comment\Resource\Comment $oComment) {
+                return $oComment->getPublic();
+            },
+            $oModel->getAll([
+                new Expand('flags'),
+                new Expand('votes'),
+                'where' => [
+                    ['type', $sType],
+                    ['item_id', $iId],
+                ],
+                'sort'  => [
+                    $oModel->getColumn('created'),
+                    $oInput->get('sort') ?: 'asc',
+                ],
+            ])
+        );
     }
 }

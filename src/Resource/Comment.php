@@ -14,6 +14,8 @@ namespace Nails\Comment\Resource;
 
 use Nails\Comment\Constants;
 use Nails\Comment\Model;
+use Nails\Comment\Resource\Comment\Flag;
+use Nails\Comment\Resource\Comment\Vote;
 use Nails\Common\Exception\FactoryException;
 use Nails\Common\Exception\ModelException;
 use Nails\Common\Helper\Model\Expand;
@@ -132,5 +134,44 @@ class Comment extends Entity
         }
 
         return $this->{$sTrigger};
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns a public safe version of the object
+     *
+     * @return \stdClass
+     */
+    public function getPublic(): \stdClass
+    {
+        return (object) [
+            'id'         => $this->id,
+            'body'       => $this->body,
+            'type'       => $this->type,
+            'item_id'    => $this->item_id,
+            'parent_id'  => $this->parent_id,
+            'parent'     => $this->parent
+                ? $this->parent->getPublic()
+                : null,
+            'flags'      => $this->flags
+                ? array_map(
+                    function (Flag $oFlag) {
+                        return $oFlag->getPublic();
+                    },
+                    $this->flags->data
+                )
+                : null,
+            'votes'      => $this->votes
+                ? array_map(
+                    function (Vote $oVote) {
+                        return $oVote->getPublic();
+                    },
+                    $this->votes->data
+                )
+                : null,
+            'created'    => $this->created,
+            'created_by' => $this->created_by,
+        ];
     }
 }

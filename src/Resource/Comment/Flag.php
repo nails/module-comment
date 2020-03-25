@@ -10,7 +10,7 @@
  * @link        https://docs.nailsapp.co.uk/modules/other/comment
  */
 
-namespace App\Resource\Comment;
+namespace Nails\Comment\Resource\Comment;
 
 use Nails\Comment\Constants;
 use Nails\Comment\Resource;
@@ -56,5 +56,22 @@ class Flag extends Entity
         }
 
         return $this->comment;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns a public-safe version of the object
+     *
+     * @return \stdClass
+     */
+    public function getPublic(): \stdClass
+    {
+        return (object) [
+            'id'         => $this->id,
+            'comment_id' => $this->comment_id,
+            'comment'    => $this->comment ? $this->comment->getPublic() : null,
+            'reason'     => $this->reason,
+        ];
     }
 }

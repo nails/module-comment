@@ -44,6 +44,12 @@ class Vote extends Base
      */
     const RESOURCE_PROVIDER = Constants::MODULE_SLUG;
 
+    /**
+     * The valid voting options
+     */
+    const TYPE_UP   = 'UP';
+    const TYPE_DOWN = 'DOWN';
+
     // --------------------------------------------------------------------------
 
     /**
@@ -56,5 +62,20 @@ class Vote extends Base
         parent::__construct();
         $this
             ->hasOne('comment', 'Comment', Constants::MODULE_SLUG);
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns the types of vote that can be cast
+     *
+     * @return array
+     */
+    public function getTypes(): array
+    {
+        return [
+            static::TYPE_UP   => 'Up',
+            static::TYPE_DOWN => 'Down',
+        ];
     }
 }

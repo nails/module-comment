@@ -44,6 +44,13 @@ class Comment extends Base
      */
     const RESOURCE_PROVIDER = Constants::MODULE_SLUG;
 
+    /**
+     * The default column to sort on
+     *
+     * @var string|null
+     */
+    const DEFAULT_SORT_COLUMN = 'created';
+
     // --------------------------------------------------------------------------
 
     /**
@@ -54,7 +61,6 @@ class Comment extends Base
     public function __construct()
     {
         parent::__construct();
-        $this->defaultSortColumn = $this->getColumn('created');
         $this
             ->hasMany('flags', 'CommentFlag', 'comment_id', Constants::MODULE_SLUG)
             ->hasMany('votes', 'CommentVote', 'comment_id', Constants::MODULE_SLUG);

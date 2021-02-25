@@ -373,7 +373,7 @@ class Comment extends Api\Controller\Base
 
         try {
 
-            $oDb->trans_begin();
+            $oDb->transaction()->start();
 
             $aExisting = $oModel->getAll([
                 'where' => [
@@ -397,10 +397,10 @@ class Comment extends Api\Controller\Base
                 );
             }
 
-            $oDb->trans_commit();
+            $oDb->transaction()->commit();
 
         } catch (\Exception $e) {
-            $oDb->trans_rollback();
+            $oDb->transaction()->rollback();
             throw $e;
         }
 

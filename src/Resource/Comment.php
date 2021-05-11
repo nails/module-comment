@@ -14,6 +14,7 @@ namespace Nails\Comment\Resource;
 
 use Nails\Comment\Constants;
 use Nails\Comment\Model;
+use Nails\Comment\Resource;
 use Nails\Comment\Resource\Comment\Flag;
 use Nails\Comment\Resource\Comment\Vote;
 use Nails\Common\Exception\FactoryException;
@@ -39,10 +40,10 @@ class Comment extends Entity
     /** @var string */
     public $body;
 
-    /** @var ExpandableField */
+    /** @var ExpandableField|null */
     public $flags;
 
-    /** @var ExpandableField */
+    /** @var ExpandableField|null */
     public $votes;
 
     // --------------------------------------------------------------------------
@@ -58,7 +59,7 @@ class Comment extends Entity
      */
     public function flags(Expand\Group $oExpand = null): ExpandableField
     {
-        return $this->getExpandableField('flags');
+        return $this->getExpandableField('flags', $oExpand);
     }
 
     // --------------------------------------------------------------------------
@@ -74,7 +75,7 @@ class Comment extends Entity
      */
     public function votes(Expand\Group $oExpand = null): ExpandableField
     {
-        return $this->getExpandableField('votes');
+        return $this->getExpandableField('votes', $oExpand);
     }
 
     // --------------------------------------------------------------------------
@@ -82,20 +83,20 @@ class Comment extends Entity
     /**
      * Returns an expanded field for the comment
      *
-     * @param string $sTrigger The trigger to expand
+     * @param string       $sTrigger The trigger to expand
+     * @param Expand\Group $oExpand  An expandable field group to pass to the expansion
      *
      * @return ExpandableField
      * @throws FactoryException
      * @throws ModelException
      */
-    protected function getExpandableField(string $sTrigger): ExpandableField
+    protected function getExpandableField(string $sTrigger, $oExpand = null): ExpandableField
     {
         if (empty($this->{$sTrigger})) {
 
             /** @var Model\Comment $oModel */
             $oModel = Factory::model('Comment', 'app');
-            /** @var Listing $oItem */
-            $oItem = $oModel->getById(
+            $oItem  = $oModel->getById(
                 $this->id,
                 [
                     new Expand($sTrigger, $oExpand),

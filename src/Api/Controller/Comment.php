@@ -10,6 +10,7 @@ use Nails\Comment\Service;
 use Nails\Common\Exception\FactoryException;
 use Nails\Common\Exception\ModelException;
 use Nails\Common\Exception\ValidationException;
+use Nails\Common\Helper\ArrayHelper;
 use Nails\Common\Helper\Model\Expand;
 use Nails\Common\Resource\Entity;
 use Nails\Common\Service\Database;
@@ -51,8 +52,8 @@ class Comment extends Api\Controller\Base
      */
     public function getRemap(): Api\Factory\ApiResponse
     {
-        /** @var Uri $oUri */
-        $oUri = Factory::service('Uri');
+        /** @var Input $oInput */
+        $oInput = Factory::service('Input');
 
         [$sType, $iId] = $this->getTypeAndId();
         $iPage = (int) $oInput->get('page') ?: 1;
@@ -94,10 +95,9 @@ class Comment extends Api\Controller\Base
             switch ($sAction) {
                 case 'FLAG':
                     return $this->flagComment($oComment);
-                    break;
+
                 default:
                     return $this->voteComment($oComment, $sAction);
-                    break;
             }
         } else {
             return $this->createComment($sType, $iId);
@@ -297,7 +297,7 @@ class Comment extends Api\Controller\Base
         $oModel = Factory::model('Comment', Constants::MODULE_SLUG);
 
         $aData = $this->getRequestData();
-        $sBody = $oCommentService->filterCommentBody(getFromArray('body', $aData));
+        $sBody = $oCommentService->filterCommentBody(ArrayHelper::get('body', $aData));
 
         if (empty($sBody)) {
             throw new ValidationException(
@@ -330,7 +330,7 @@ class Comment extends Api\Controller\Base
             true
         );
 
-        if (!$oComment) {
+        if (empty($oComment)) {
             throw new Api\Exception\ApiException(
                 trim('Failed to create comment. ' . $oModel->lastError())
             );
@@ -383,7 +383,7 @@ class Comment extends Api\Controller\Base
             ]);
 
             if (!empty($aExisting)) {
-                $oModel->deleteMany(arrayExtractProperty($aExisting, 'id'));
+                $oModel->deleteMany(ArrayHelper::extract($aExisting, 'id'));
             }
 
             $iVoteId = $oModel->create([
@@ -393,7 +393,7 @@ class Comment extends Api\Controller\Base
 
             if (empty($iVoteId)) {
                 throw new Api\Exception\ApiException(
-                    trim('Failed to cast vote. ' . $oModel->lasrError())
+                    trim('Failed to cast vote. ' . $oModel->lastError())
                 );
             }
 
@@ -431,7 +431,7 @@ class Comment extends Api\Controller\Base
         $oModel = Factory::model('CommentFlag', Constants::MODULE_SLUG);
 
         $aData   = $this->getRequestData();
-        $sReason = $oCommentService->filterCommentBody(getFromArray('reason', $aData));
+        $sReason = $oCommentService->filterCommentBody(ArrayHelper::get('reason', $aData));
 
         if (empty($sReason)) {
             throw new ValidationException(
@@ -459,7 +459,7 @@ class Comment extends Api\Controller\Base
 
         if (empty($iFlagId)) {
             throw new Api\Exception\ApiException(
-                trim('Failed to flag comment. ' . $oModel->lasrError())
+                trim('Failed to flag comment. ' . $oModel->lastError())
             );
         }
 

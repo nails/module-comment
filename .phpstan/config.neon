@@ -3,3 +3,9 @@ parameters:
     paths:
         - ../src
         - ../tests
+    bootstrapFiles:
+        - constants.php
+    scanFiles:
+        - ../vendor/nails/common/helpers/url.php
+        - ../vendor/nails/module-auth/helpers/user.php
+        - ../vendor/codeigniter/framework/system/helpers/url_helper.php

@@ -13,6 +13,8 @@
 namespace Nails\Comment\Resource\Comment;
 
 use Nails\Comment\Constants;
+use Nails\Comment\Model;
+use Nails\Comment\Resource;
 use Nails\Common\Exception\FactoryException;
 use Nails\Common\Exception\ModelException;
 use Nails\Common\Resource\Entity;
@@ -28,7 +30,7 @@ class Vote extends Entity
     /** @var int */
     public $comment_id;
 
-    /** @var Resource\Comment */
+    /** @var Resource\Comment|null */
     public $comment;
 
     /** @var string */
@@ -41,16 +43,18 @@ class Vote extends Entity
      *
      * @param array $aData A control array to pass to the Comment model
      *
-     * @return $this|null
+     * @return Resource\Comment|null
      * @throws FactoryException
      * @throws ModelException
      */
-    public function comment(array $aData = []): ?self
+    public function comment(array $aData = []): ?Resource\Comment
     {
         if (empty($this->comment) && !empty($this->comment_id)) {
             /** @var Model\Comment $oModel */
-            $oModel        = Factory::model('Comment', Constants::MODULE_SLUG);
-            $this->comment = $oModel->getById($this->comment_id, $aData);
+            $oModel = Factory::model('Comment', Constants::MODULE_SLUG);
+            /** @var Resource\Comment|null $oItem */
+            $oItem = $oModel->getById($this->comment_id, $aData);
+            $this->comment = $oItem;
         }
 
         return $this->comment;

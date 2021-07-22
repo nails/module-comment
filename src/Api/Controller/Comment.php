@@ -310,7 +310,7 @@ class Comment extends Api\Controller\Base
                 ['type', $sType],
                 ['item_id', $iId],
                 ['body', $sBody],
-                ['created_by', activeUser('id')],
+                [$oModel->getColumnCreatedBy(), activeUser('id')],
             ],
         ]);
 
@@ -378,7 +378,7 @@ class Comment extends Api\Controller\Base
             $aExisting = $oModel->getAll([
                 'where' => [
                     ['comment_id', $oComment->id],
-                    ['created_by', activeUser('id')],
+                    [$oModel->getColumnCreatedBy(), activeUser('id')],
                 ],
             ]);
 
@@ -442,7 +442,7 @@ class Comment extends Api\Controller\Base
         $iExisting = $oModel->countAll([
             'where' => [
                 ['comment_id', $oComment->id],
-                ['created_by', activeUser('id')],
+                [$oModel->getColumnCreatedBy(), activeUser('id')],
             ],
         ]);
 

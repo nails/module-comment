@@ -82,7 +82,7 @@ class Comment extends Api\Controller\Base
 
             /** @var Model\Comment $oModel */
             $oModel = Factory::model('Comment', Constants::MODULE_SLUG);
-            /** @var Resource\Comment $oComment */
+            /** @var Resource\Comment|null $oComment */
             $oComment = $oModel->getById($iCommentId);
             if (empty($oComment)) {
                 throw new Api\Exception\ApiException(
@@ -172,25 +172,27 @@ class Comment extends Api\Controller\Base
         $oInput = Factory::service('Input');
         /** @var Model\Comment $oModel */
         $oModel = Factory::model('Comment', Constants::MODULE_SLUG);
+        /** @var Resource\Comment[] $aItems */
+        $aItems = $oModel->getAll([
+            new Expand('flags'),
+            new Expand('votes'),
+            new Expand('created_by'),
+            'where' => [
+                ['type', $sType],
+                ['item_id', $iId],
+            ],
+            'limit' => [$iPage, static::CONFIG_PER_PAGE],
+            'sort'  => [
+                $oModel->getColumn('created'),
+                $oInput->get('sort') ?: 'asc',
+            ],
+        ]);
 
         return array_map(
             function (Resource\Comment $oComment) {
                 return $oComment->getPublic();
             },
-            $oModel->getAll([
-                new Expand('flags'),
-                new Expand('votes'),
-                new Expand('created_by'),
-                'where' => [
-                    ['type', $sType],
-                    ['item_id', $iId],
-                ],
-                'limit' => [$iPage, static::CONFIG_PER_PAGE],
-                'sort'  => [
-                    $oModel->getColumn('created'),
-                    $oInput->get('sort') ?: 'asc',
-                ],
-            ])
+            $aItems
         );
     }
 
@@ -320,7 +322,7 @@ class Comment extends Api\Controller\Base
             );
         }
 
-        /** @var Resource\Comment $oComment */
+        /** @var Resource\Comment|null $oComment */
         $oComment = $oModel->create(
             [
                 'type'    => $sType,

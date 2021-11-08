@@ -118,6 +118,11 @@ class Comment extends Entity
      */
     public function getPublic(): \stdClass
     {
+        /** @var Flag[] $aFlags */
+        $aFlags = $this->flags->data;
+        /** @var Vote[] $aVotes */
+        $aVotes = $this->votes->data;
+
         return (object) [
             'id'         => $this->id,
             'body'       => $this->body,
@@ -128,7 +133,7 @@ class Comment extends Entity
                     function (Flag $oFlag) {
                         return $oFlag->getPublic();
                     },
-                    $this->flags->data
+                    $aFlags
                 )
                 : null,
             'votes'      => $this->votes
@@ -136,7 +141,7 @@ class Comment extends Entity
                     function (Vote $oVote) {
                         return $oVote->getPublic();
                     },
-                    $this->votes->data
+                    $aVotes
                 )
                 : null,
             'created'    => $this->created,

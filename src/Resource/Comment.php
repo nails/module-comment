@@ -57,7 +57,7 @@ class Comment extends Entity
      * @throws FactoryException
      * @throws ModelException
      */
-    public function flags(Expand\Group $oExpand = null): ExpandableField
+    public function flags(?Expand\Group $oExpand = null): ExpandableField
     {
         return $this->getExpandableField('flags', $oExpand);
     }
@@ -73,7 +73,7 @@ class Comment extends Entity
      * @throws FactoryException
      * @throws ModelException
      */
-    public function votes(Expand\Group $oExpand = null): ExpandableField
+    public function votes(?Expand\Group $oExpand = null): ExpandableField
     {
         return $this->getExpandableField('votes', $oExpand);
     }

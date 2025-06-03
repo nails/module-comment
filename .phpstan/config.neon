@@ -8,4 +8,4 @@ parameters:
     scanFiles:
         - ../vendor/nails/common/helpers/url.php
         - ../vendor/nails/module-auth/helpers/user.php
-        - ../vendor/codeigniter/framework/system/helpers/url_helper.php
+        - ../vendor/pocketarc/codeigniter/system/helpers/url_helper.php

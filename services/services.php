@@ -41,25 +41,25 @@ return [
         },
     ],
     'resources' => [
-        'Comment'     => function ($mObj): Resource\Comment {
+        'Comment'     => function ($resource, $model): Resource\Comment {
             if (class_exists('\App\Comment\Resource\Comment')) {
-                return new \App\Comment\Resource\Comment($mObj);
+                return new \App\Comment\Resource\Comment($resource, $model);
             } else {
-                return new Resource\Comment($mObj);
+                return new Resource\Comment($resource, $model);
             }
         },
-        'CommentFlag' => function ($mObj): Resource\Comment\Flag {
+        'CommentFlag' => function ($resource, $model): Resource\Comment\Flag {
             if (class_exists('\App\Comment\Resource\Comment\Flag')) {
-                return new \App\Comment\Resource\Comment\Flag($mObj);
+                return new \App\Comment\Resource\Comment\Flag($resource, $model);
             } else {
-                return new Resource\Comment\Flag($mObj);
+                return new Resource\Comment\Flag($resource, $model);
             }
         },
-        'CommentVote' => function ($mObj): Resource\Comment\Vote {
+        'CommentVote' => function ($resource, $model): Resource\Comment\Vote {
             if (class_exists('\App\Comment\Resource\Comment\Vote')) {
-                return new \App\Comment\Resource\Comment\Vote($mObj);
+                return new \App\Comment\Resource\Comment\Vote($resource, $model);
             } else {
-                return new Resource\Comment\Vote($mObj);
+                return new Resource\Comment\Vote($resource, $model);
             }
         },
     ],

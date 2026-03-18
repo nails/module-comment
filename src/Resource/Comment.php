@@ -21,7 +21,7 @@ use Nails\Common\Exception\FactoryException;
 use Nails\Common\Exception\ModelException;
 use Nails\Common\Helper\Model\Expand;
 use Nails\Common\Resource\Entity;
-use Nails\Common\Resource\ExpandableField;
+use Nails\Common\Resource\ExpandableFieldData;
 use Nails\Factory;
 
 /**
@@ -40,10 +40,10 @@ class Comment extends Entity
     /** @var string */
     public $body;
 
-    /** @var ExpandableField|null */
+    /** @var ExpandableFieldData|null */
     public $flags;
 
-    /** @var ExpandableField|null */
+    /** @var ExpandableFieldData|null */
     public $votes;
 
     // --------------------------------------------------------------------------
@@ -53,11 +53,11 @@ class Comment extends Entity
      *
      * @param Expand\Group|null $oExpand An Expand group to pass to the CommentFlag model
      *
-     * @return ExpandableField
+     * @return ExpandableFieldData
      * @throws FactoryException
      * @throws ModelException
      */
-    public function flags(?Expand\Group $oExpand = null): ExpandableField
+    public function flags(?Expand\Group $oExpand = null): ExpandableFieldData
     {
         return $this->getExpandableField('flags', $oExpand);
     }
@@ -69,11 +69,11 @@ class Comment extends Entity
      *
      * @param Expand\Group|null $oExpand An Expand group to pass to the CommenVote model
      *
-     * @return ExpandableField
+     * @return ExpandableFieldData
      * @throws FactoryException
      * @throws ModelException
      */
-    public function votes(?Expand\Group $oExpand = null): ExpandableField
+    public function votes(?Expand\Group $oExpand = null): ExpandableFieldData
     {
         return $this->getExpandableField('votes', $oExpand);
     }
@@ -86,11 +86,11 @@ class Comment extends Entity
      * @param string       $sTrigger The trigger to expand
      * @param Expand\Group $oExpand  An expandable field group to pass to the expansion
      *
-     * @return ExpandableField
+     * @return ExpandableFieldData
      * @throws FactoryException
      * @throws ModelException
      */
-    protected function getExpandableField(string $sTrigger, $oExpand = null): ExpandableField
+    protected function getExpandableField(string $sTrigger, $oExpand = null): ExpandableFieldData
     {
         if (empty($this->{$sTrigger})) {
 
